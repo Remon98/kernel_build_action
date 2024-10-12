@@ -6,22 +6,22 @@ branding:
   color: 'blue'
 
 inputs:
-  kernel-url: https://github.com/realme-kernel-opensource/realme_8-5G_8S-5G_9-5G_9i-5G_Narzo50-5G_Narzo30-5G_V13_Q3i_realme10_mt6833-AndroidT-kernel-source.git
+  kernel-url: 'https://github.com/realme-kernel-opensource/realme_8-5G_8S-5G_9-5G_9i-5G_Narzo50-5G_Narzo30-5G_V13_Q3i_realme10_mt6833-AndroidT-kernel-source.git'
     description: 'Kernel Source Url'
     required: true
   depth:
     required: false
     default: 1
-  vendor:
+  vendor: vendor
     required: true
     default: false
-  vendor-url: https://github.com/realme-kernel-opensource/realme_8-5G_8S-5G_9-5G_9i-5G_Narzo50-5G_Narzo30-5G_V13_Q3i_realme10_mt6833-AndroidT-vendor-source.git
+  vendor-url: 'https://github.com/realme-kernel-opensource/realme_8-5G_8S-5G_9-5G_9i-5G_Narzo50-5G_Narzo30-5G_V13_Q3i_realme10_mt6833-AndroidT-vendor-source.git'
     description: 'Kernel Vendor Source Url'
     required: true
-  kernel-dir: https://github.com/realme-kernel-opensource/realme_8-5G_8S-5G_9-5G_9i-5G_Narzo50-5G_Narzo30-5G_V13_Q3i_realme10_mt6833-AndroidT-kernel-source/tree/master/kernel
+  kernel-dir: kernel
     required: true
     default: kernel
-  vendor-dir: https://github.com/realme-kernel-opensource/realme_8-5G_8S-5G_9-5G_9i-5G_Narzo50-5G_Narzo30-5G_V13_Q3i_realme10_mt6833-AndroidT-vendor-source/tree/master/vendor
+  vendor-dir: vendor
     required: true
     default: vendor
   kernel-branch: master
@@ -31,7 +31,7 @@ inputs:
   vendor-branch: master
     required: true
     default: main
-  config: k6833v1_64_k419_defconfig
+  config: 'k6833v1_64_k419_defconfig'
     description: 'configuration for building android kernel'
     required: true
     default: defconfig
@@ -122,7 +122,7 @@ inputs:
     description: '3rdparty anykernrl3 url path'
     required: false
     default: ""
-  bootimg-url: https://drive.usercontent.google.com/download?id=1zW8mZrm10LegPZBKOzR1sm05BXJTMBUZ&export=download&authuser=0&confirm=t&uuid=d702b735-ae12-4d17-a58e-aa7fc0c484b0&at=AN_67v1UHbR5FvwEtdTc6mTp7Lex%3A1728741955258
+  bootimg-url: "https://drive.usercontent.google.com/download?id=1zW8mZrm10LegPZBKOzR1sm05BXJTMBUZ&export=download&authuser=0&confirm=t&uuid=d702b735-ae12-4d17-a58e-aa7fc0c484b0&at=AN_67v1UHbR5FvwEtdTc6mTp7Lex%3A1728741955258"
     description: "boot.img path"
     required: true
     default: ""
@@ -448,15 +448,15 @@ runs:
                 sed -i 's/is_slot_device=0;/IS_SLOT_DEVICE=auto;/g' AnyKernel3/anykernel.sh
             fi
 
-            if [ -f out/arch/${{ inputs.arch }}/boot/Image.*-dtb ]; then
-                cp out/arch/${{ inputs.arch }}/boot/Image.*-dtb AnyKernel3/ -rv
-            elif [ -f out/arch/${{ inputs.arch }}/boot/Image.* ]; then
-                cp out/arch/${{ inputs.arch }}/boot/Image.* AnyKernel3/ -rv
+            if [ -f out/arch/${{ inputs.arch }}/boot/* ]; then
+                cp out/arch/${{ inputs.arch }}/boot/* AnyKernel3/ -rv
+            elif [ -f out/arch/${{ inputs.arch }}/boot/* ]; then
+                cp out/arch/${{ inputs.arch }}/boot/* AnyKernel3/ -rv
             else
-                cp out/arch/${{ inputs.arch }}/boot/Image AnyKernel3/ -rv
+                cp out/arch/${{ inputs.arch }}/boot/* AnyKernel3/ -rv
             fi
 
-            test -f out/arch/${{ inputs.arch }}/boot/dtbo.img && cp -v out/arch/${{ inputs.arch }}/boot/dtbo.img AnyKernel3/
+            test -f out/arch/${{ inputs.arch }}/boot/boot.img && cp -v out/arch/${{ inputs.arch }}/boot/boot.img AnyKernel3/
 
             rm -rf -v AnyKernel3/.git* AnyKernel3/README.md
             if [ ${{ inputs.release }} = false ]; then
