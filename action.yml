@@ -6,7 +6,7 @@ branding:
   color: 'blue'
 
 inputs:
-  kernel-url: https://github.com/realme-kernel-opensource/realme_8-5G_8S-5G_9-5G_9i-5G_Narzo50-5G_Narzo30-5G_V13_Q3i_realme10_mt6833-AndroidT-kernel-source
+  kernel-url: https://github.com/realme-kernel-opensource/realme_8-5G_8S-5G_9-5G_9i-5G_Narzo50-5G_Narzo30-5G_V13_Q3i_realme10_mt6833-AndroidT-kernel-source.git
     description: 'Kernel Source Url'
     required: true
   depth:
